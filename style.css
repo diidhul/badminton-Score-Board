@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  text-align: center;
+}
+
+.grid-item {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+#countLabel {
+  font-size: 154px;
+  font-family: helvetica;
+  display: block;
+  align-items: center;
+  text-align: center;
+}
+
+#playerName {
+  text-align: center;
+  align-items: center;
+}
+
+#btnContainer {
+  align-items: center;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.buttons {
+  padding: 10px 30px;
+  font-size: 14px;
+  color: aliceblue;
+  background-color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+  margin: 5px;
+}
+
+.buttons:hover {
+  background-color: rgb(70, 70, 70);
+}
+
+#resetBtnContainer {
+  text-align: center;
+}
+
+.resetbtn {
+  text-align: center;
+  padding: 10px 30px;
+  font-size: 14px;
+  color: aliceblue;
+  background-color: rgb(48, 48, 48);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.resetbtn:hover {
+  background-color: rgb(163, 49, 49);
+}
