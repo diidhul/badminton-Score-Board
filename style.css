@@ -1,18 +1,26 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+h1 {
+  padding: 20px 0 10px;
+  text-align: center;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
-  text-align: center;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  gap: 50px;
+  justify-content: space-evenly;
 }
 
 .grid-item {
@@ -20,34 +28,25 @@ body {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  text-align: center;
 }
 
 input[type="text"] {
   width: 100%;
   padding: 5px;
-  margin-top: auto;
-  margin-left: -5%;
 }
 
-#countLabel {
-  font-size: 154px;
-  font-family: helvetica;
-  display: block;
-  align-items: center;
-  text-align: center;
+.btnSavePlayer {
+  padding: 5px 2px;
+  margin-top: 8px;
 }
 
+#countLabel,
 #countLabel2 {
   font-size: 154px;
   font-family: helvetica;
   display: block;
-  align-items: center;
   text-align: center;
-}
-
-#playerName {
-  text-align: center;
-  align-items: center;
 }
 
 .buttons {
@@ -65,9 +64,11 @@ input[type="text"] {
   background-color: rgb(70, 70, 70);
 }
 
+.btnSavePlayer {
+}
+
 .resetBtnContainer {
   text-align: center;
-  margin-top: auto;
   padding: 20px 0;
 }
 
@@ -84,4 +85,21 @@ input[type="text"] {
 
 .resetbtn:hover {
   background-color: rgb(163, 49, 49);
+}
+
+/* Media Query untuk layar kecil */
+@media (max-width: 430px) {
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .grid-container {
+    flex-direction: column; /* Mengubah grid menjadi kolom (bertumpuk ke bawah) */
+    gap: 20px; /* Memberi jarak antar item */
+  }
+
+  .grid-item {
+    width: 100%; /* Memastikan item memenuhi lebar layar kecil */
+  }
 }
