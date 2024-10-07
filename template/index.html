@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/index.css">
     <title>Badminton Score Counter</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -14,9 +14,10 @@
     <div class="content-wrapper">
         <div class="grid-container">
             <div class="grid-item">
+                <h3 id="playerName1">Player 1</h3>
                 <label id="countLabel">0</label>
                 <br>
-                <input id="playerName1" type="text" placeholder="Player 1">
+                <input id="inputPlayerName1" type="string" placeholder="Player 1">
                 <button id="btnSaveP1" class="btnSavePlayer"> Save </button>
                 <div id="btnContainer">
                     <br>
@@ -25,9 +26,10 @@
                 </div>
             </div>
             <div class="grid-item">
+                <h3 id="playerName2">Player 2</h3>
                 <label id="countLabel2">0</label>
                 <br>
-                <input id="playerName2" type="text" placeholder="Player 2">
+                <input id="inputPlayerName2" type="string" placeholder="Player 2">
                 <button id="btnSaveP2" class="btnSavePlayer"> Save </button>
                 <div id="btnContainer">
                     <br>
@@ -41,7 +43,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 </body>
 
 </html>
