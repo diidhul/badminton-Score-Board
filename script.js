@@ -5,17 +5,15 @@ const increaseBtn2 = document.getElementById("increaseBtn2");
 const decreaseBtn = document.getElementById("decreaseBtn");
 const decreaseBtn2 = document.getElementById("decreaseBtn2");
 const resetBtn = document.getElementById("resetBtn");
-const playerName1 = document.getElementById("playerName1");
-const playerName2 = document.getElementById("playerName2");
-const inputPlayerName1 = document.getElementById("inputPlayerName1");
-const inputPlayerName2 = document.getElementById("inputPlayerName2");
-const btnSaveP1 = document.getElementById("btnSaveP1");
 
 let count = [0, 0];
+
+let winningScore = 6;
 
 function increaseScore(playerIndex, countLabel) {
   count[playerIndex]++;
   countLabel.textContent = count[playerIndex];
+  winnerPlayer();
 }
 
 function decreaseScore(playerIndex, countLabel) {
@@ -23,19 +21,32 @@ function decreaseScore(playerIndex, countLabel) {
     count[playerIndex]--;
     countLabel.textContent = count[playerIndex];
   }
+  winnerPlayer();
 }
 
 function resetScore() {
-  scores = [0, 0];
-  countLabel.textContent = scores[0];
-  countLabel2.textContent = scores[1];
+  count = [0, 0];
+  countLabel.textContent = count[0];
+  countLabel2.textContent = count[1];
 }
+
+// Fungsi untuk memeriksa apakah ada pemenang
+function winnerPlayer() {
+  if (count[0] >= winningScore) {
+    alert("Player 1 won the game!");
+    resetScore(); // Reset skor setelah ada pemenang
+  } else if (count[1] >= winningScore) {
+    alert("Player 2 won the game!");
+    resetScore(); // Reset skor setelah ada pemenang
+  }
+}
+
 increaseBtn.onclick = function () {
   increaseScore(0, countLabel);
 };
 
 increaseBtn2.onclick = function () {
-  increaseScore(0, countLabel2);
+  increaseScore(1, countLabel2);
 };
 
 decreaseBtn.onclick = function () {
@@ -43,23 +54,35 @@ decreaseBtn.onclick = function () {
 };
 
 decreaseBtn2.onclick = function () {
-  decreaseScore(0, countLabel2);
+  decreaseScore(1, countLabel2);
 };
 
 resetBtn.onclick = resetScore;
 
-function printPlayerName1() {
-  const playerNameInput = inputPlayerName1.value;
-  if (playerNameInput.trim() !== "") {
-    playerName1.textContent = playerNameInput;
-  } else {
-    alert("Nama pemain tidak boleh kosong!");
+let playerName1;
+let playerName2;
+
+function savePlayerName1() {
+  playerName1 = document.getElementById("inputPlayerName1").value;
+
+  if (playerName1.trim() === "") {
+    alert("Player name cannot be empty");
+    return;
   }
-  console.log("print player name success");
+  document.getElementById("playerName1").textContent = `${playerName1}`;
+  document.getElementById("inputPlayerName1").style.display = "none";
 }
 
-btnSaveP1.onclick = printPlayerName1;
+function savePlayerName2() {
+  playerName2 = document.getElementById("inputPlayerName2").value;
 
-function pointJust() {}
+  if (playerName2.trim() === "") {
+    alert("Player name cannot be empty!!!");
+    return;
+  }
+  document.getElementById("playerName2").textContent = `${playerName2}`;
+  document.getElementById("inputPlayerName2").style.display = "none";
+}
 
-function winnerPlayer() {}
+document.getElementById("btnSaveP1").onclick = savePlayerName1;
+document.getElementById("btnSaveP2").onclick = savePlayerName2;
