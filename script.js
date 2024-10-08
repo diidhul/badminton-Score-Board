@@ -21,7 +21,6 @@ function decreaseScore(playerIndex, countLabel) {
     count[playerIndex]--;
     countLabel.textContent = count[playerIndex];
   }
-  winnerPlayer();
 }
 
 function resetScore() {
@@ -32,12 +31,21 @@ function resetScore() {
 
 // Fungsi untuk memeriksa apakah ada pemenang
 function winnerPlayer() {
-  if (count[0] >= winningScore) {
-    alert("Player 1 won the game!");
-    resetScore(); // Reset skor setelah ada pemenang
-  } else if (count[1] >= winningScore) {
-    alert("Player 2 won the game!");
-    resetScore(); // Reset skor setelah ada pemenang
+  // kalo menang maka harus selisih 2 poin
+  if (count[0] >= 21 && count[0] - count[1] >= 2) {
+    alert(`${playerName1 || "Player 1"} won the game!`);
+    resetScore();
+  } else if (count[1] >= 21 && count[1] - count[0] >= 2) {
+    alert(`${playerName2 || "Player 2"} won the game!`);
+    resetScore();
+  }
+  //jika deuce maka lanjutkan permainan hingga selisih 2 poin atau siapa yang duluan sampe 30 poin
+  if (count[0] === 30) {
+    alert(`${playerName1 || "Player 1"} won the game with 30 points!`);
+    resetScore();
+  } else if (count[1] === 30) {
+    alert(`${playerName2 || "Player 2"} won the game with 30 points!`);
+    resetScore();
   }
 }
 
@@ -62,6 +70,7 @@ resetBtn.onclick = resetScore;
 let playerName1;
 let playerName2;
 
+//function save nama player
 function savePlayerName1() {
   playerName1 = document.getElementById("inputPlayerName1").value;
 
@@ -70,7 +79,7 @@ function savePlayerName1() {
     return;
   }
   document.getElementById("playerName1").textContent = `${playerName1}`;
-  document.getElementById("inputPlayerName1").style.display = "none";
+  document.getElementById("inputContainer1").style.display = "none";
 }
 
 function savePlayerName2() {
@@ -81,8 +90,9 @@ function savePlayerName2() {
     return;
   }
   document.getElementById("playerName2").textContent = `${playerName2}`;
-  document.getElementById("inputPlayerName2").style.display = "none";
+  document.getElementById("inputContainer2").style.display = "none";
 }
 
 document.getElementById("btnSaveP1").onclick = savePlayerName1;
 document.getElementById("btnSaveP2").onclick = savePlayerName2;
+// end of save nama player
