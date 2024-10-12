@@ -1,0 +1,12 @@
+# Mengabaikan file konfigurasi
+config.js
+
+# Mengabaikan file teks rahasia di folder config
+config/secret.txt
+
+# Mengabaikan semua file log
+*.log
+
+
+#mengabaikan node modules
+node_modules/

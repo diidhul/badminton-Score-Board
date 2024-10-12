@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Badminton Score Counter</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="container-heading">
+        <h2>Selamat Datang, Aku siap menemani anda untuk bermain tepok bulu</h2>
+    </div>
+
+    <div class="container-login">
+        <button onclick="document.getElementById('loginModal').style.display='block'" style="width:auto;">Login</button>
+        <button onclick="document.getElementById('registerModal').style.display='block'"
+            style="width:auto;">Register</button>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <form id="loginForm" class="modal-content animate">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('loginModal').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
+                <img src="../images/tepok bulu.png" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container">
+                <label for="loginEmail"><b>Email</b></label>
+                <input type="email" id="loginEmail" placeholder="Enter Email" required>
+
+                <label for="loginPassword"><b>Password</b></label>
+                <input type="password" id="loginPassword" placeholder="Enter Password" required>
+
+                <button type="submit">Login</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('loginModal').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </form>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <form id="registerForm" class="modal-content animate">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('registerModal').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
+                <img src="../images/tepok bulu.png" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container">
+                <label for="registerEmail"><b>Email</b></label>
+                <input type="email" id="registerEmail" placeholder="Enter Email" required>
+
+                <label for="registerUsername"><b>Username</b></label>
+                <input type="text" id="registerUsername" placeholder="Enter Username" required>
+
+                <label for="registerPassword"><b>Password</b></label>
+                <input type="password" id="registerPassword" placeholder="Enter Password" required>
+
+                <button type="submit">Register</button>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('registerModal').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Modal Login
+        var loginModal = document.getElementById('loginModal');
+        window.onclick = function (event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+        }
+
+        // Modal Register
+        var registerModal = document.getElementById('registerModal');
+        window.onclick = function (event) {
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+        }
+
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            if (data.token) {
+                // Simpan token JWT di localStorage
+                localStorage.setItem('token', data.token);
+                // Redirect ke halaman index
+                window.location.href = data.redirect;
+            } else {
+                alert(data.message);
+            }
+        });
+
+
+        // Register Form Handler
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('registerEmail').value;
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+
+            const response = await fetch('http://localhost:5000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, username, password })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>

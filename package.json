@@ -1,0 +1,26 @@
+{
+  "name": "badminton-score-counter",
+  "version": "1.0.0",
+  "description": "this is just a simple counter score for badminton wich is include function increment and dcrement for each site of player, this repository will update by time as long as I upgrade my skill.\r check the image below this 👇",
+  "main": "app.js",
+  "scripts": {
+    "tepok-run": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.7"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/express": "^5.0.0"
+  }
+}
