@@ -1,117 +1,28 @@
-const express = require("express");
-const mysql = require("mysql");
-const jwt = require("jsonwebtoken");
-// const cors = require("cors");
-const path = require("path");
+const express = require("express"); //import express untuk
+const path = require("path"); // untuk bisa manggil manggil manggil file dalam directory public, biar seamless cara panggilnya kaya yang di line 11 ``....__dirname,"public")));
+const authRoutes = require("./authRoutes"); // Import routes untuk autentikasi
 
-const app = express();
-const port = 5000;
+const app = express(); //inisaliasi aplikasi sebagai express biar nnti instancenya si express (objek yang dimuat dari class) bisa di pake sbagai fungsi website.
+const port = 5000; //gedefine port biar dalam pemanggilan jangan ngetik port lagi
 
 // Middleware
-// app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public"))); //untuk bisa nampilin css yang ada di flder public
+//👆untuk mem-parsing (memproses) request body yang berformat JSON. Artinya, jika klien (browser atau aplikasi lain) mengirimkan data dalam format JSON melalui HTTP POST, PUT, PATCH, atau DELETE, middleware ini akan mem-parsing data tersebut agar dapat diakses melalui req.body dalam request handler Anda
 
-// Koneksi ke database
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "user_management",
-});
+app.use(express.static(path.join(__dirname, "public")));
+// Routes atau endpoint
+app.use(authRoutes);
 
-db.connect((err) => {
-  if (err) {
-    console.error("Database connection error:", err);
-    return;
-  }
-  console.log("Connected to MySQL");
-});
-
-// Secret Key untuk JWT
-const JWT_SECRET = "your_jwt_secret_key";
-
-//endpoint halaman utama
+// Halaman Utama
 app.get("/", (req, res) => {
-  // res.send("Hello World!");
   res.sendFile(__dirname + "/views/login.html");
 });
-
-// Register Endpoint
-app.post("/register", async (req, res) => {
-  const { email, username, password } = req.body;
-
-  // Validasi input kosong
-  if (!email || !username || !password) {
-    return res.status(400).json({ message: "Semua field harus diisi" });
-  }
-
-  // Cek apakah user sudah ada
-  db.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    async (err, result) => {
-      if (result.length > 0) {
-        return res.status(400).json({ message: "Email sudah digunakan" });
-      }
-
-      // Simpan user baru ke database
-      db.query(
-        "INSERT INTO users (email, username, password) VALUES (?, ?, ?)",
-        [email, username, password],
-        (err, result) => {
-          if (err) {
-            return res.status(500).json({ message: "Database error" });
-          }
-          res.status(201).json({ message: "Registrasi berhasil" });
-        }
-      );
-    }
-  );
-});
-
-// Login Endpoint
 
 app.get("/index", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-// Login Endpoint
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-
-  // Cek apakah user ada
-  db.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    async (err, result) => {
-      if (result.length === 0) {
-        return res.status(400).json({ message: "User tidak ditemukan" });
-      }
-
-      const user = result[0];
-
-      // Cek password
-      const isPasswordValid = password === user.password; // Buang bcrypt untuk sekarang karena dihapus
-      if (!isPasswordValid) {
-        return res.status(400).json({ message: "Password salah" });
-      }
-
-      // Buat token JWT
-      const token = jwt.sign(
-        { userId: user.id, username: user.username },
-        JWT_SECRET,
-        {
-          expiresIn: "1h",
-        }
-      );
-
-      // Simpan token di sisi klien (front-end perlu mengambil token dan menyimpannya)
-      res.json({ message: "Login berhasil", token, redirect: "/index" });
-    }
-  );
-});
-
+// Jalankan server
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);
 });

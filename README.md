@@ -23,7 +23,7 @@ u need local server xampp or similar app
 
 1. Open xampp, start Apache & MySQL module
 2. on browser open localhost server http://localhost/phpmyadmin/
-3. run SQL Query, paste code below
+3. run SQL Query, paste code below 👇
 
    ```sh
         CREATE DATABASE `user_management-tepok-bulu-counter`;
