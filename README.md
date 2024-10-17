@@ -16,6 +16,7 @@ u need local server xampp or similar app
 2. install dependencies
 
 ```sh
+    npm init -y
     npm install
 ```
 
